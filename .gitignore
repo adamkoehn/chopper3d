@@ -1,0 +1,27 @@
+.vscode/
+autom4te.cache/
+aclocal.m4
+autoscan.log
+/chopper
+config.h
+config.h.in
+config.log
+config.status
+configure
+configure.scan
+configure~
+COPYING
+depcomp
+INSTALL
+install-sh
+Makefile
+Makefile.in
+missing
+stamp-h1
+
+**/.deps/
+**/.dirstamp
+**/*.o
+
+# Remove later
+models/
