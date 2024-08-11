@@ -2,6 +2,8 @@
 #define SRC_SHADER
 
 #include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -13,6 +15,9 @@ public:
     Shader(std::string vertPath, std::string fragPath);
     ~Shader();
     void Use();
+    void SetModel(glm::mat4 model);
+    void SetView(glm::mat4 view);
+    void SetProjection(glm::mat4 projection);
 
 private:
     std::string readFile(std::string path);
@@ -21,6 +26,9 @@ private:
 
 private:
     GLuint _program;
+    GLuint _model;
+    GLuint _view;
+    GLuint _projection;
 };
 
 #endif /* SRC_SHADER */

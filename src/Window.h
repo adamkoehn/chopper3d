@@ -9,8 +9,9 @@
 class Window
 {
 public:
-    Window();
+    Window(int width, int height);
     ~Window();
+    void Clear();
     void Swap();
 
 private:

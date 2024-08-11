@@ -12,6 +12,7 @@ AC_PROG_CXX
 # Checks for libraries.
 PKG_CHECK_MODULES([SDL], [sdl2], [], [AC_MSG_ERROR([sdl2 could not be found])])
 PKG_CHECK_MODULES([GLEW], [glew], [], [AC_MSG_ERROR([glew could not be found])])
+PKG_CHECK_MODULES([GLM], [glm], [], [AC_MSG_ERROR([glm could not be found])])
 
 # Checks for header files.
 

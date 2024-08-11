@@ -5,6 +5,10 @@ Shader::Shader(std::string vertPath, std::string fragPath)
     _program = createProgram(
         createShader(GL_VERTEX_SHADER, readFile(vertPath)),
         createShader(GL_FRAGMENT_SHADER, readFile(fragPath)));
+
+    _model = glGetUniformLocation(_program, "Model");
+    _view = glGetUniformLocation(_program, "View");
+    _projection = glGetUniformLocation(_program, "Projection");
 }
 
 Shader::~Shader()
@@ -15,6 +19,21 @@ Shader::~Shader()
 void Shader::Use()
 {
     glUseProgram(_program);
+}
+
+void Shader::SetModel(glm::mat4 model)
+{
+    glUniformMatrix4fv(_model, 1, GL_FALSE, glm::value_ptr(model));
+}
+
+void Shader::SetView(glm::mat4 view)
+{
+    glUniformMatrix4fv(_view, 1, GL_FALSE, glm::value_ptr(view));
+}
+
+void Shader::SetProjection(glm::mat4 projection)
+{
+    glUniformMatrix4fv(_projection, 1, GL_FALSE, glm::value_ptr(projection));
 }
 
 std::string Shader::readFile(std::string path)
