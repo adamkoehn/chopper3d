@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
+#include <iostream>
 
 struct Vertex
 {
@@ -15,14 +16,14 @@ struct Vertex
 
 struct Texture
 {
-    unsigned Id;
+    unsigned int Id;
     std::string Type;
 };
 
 class Mesh
 {
 public:
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned> indices, std::vector<Texture> textures);
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
     ~Mesh();
     void Draw();
 
@@ -30,12 +31,10 @@ private:
     void setupMesh();
 
 private:
-    unsigned _vao;
-    unsigned _vbo;
-    unsigned _ebo;
-    std::vector<Vertex> _vertices;
-    std::vector<unsigned> _indices;
-    std::vector<Texture> _textures;
+    GLuint _vao;
+    GLuint _vbo;
+    GLuint _ebo;
+    GLsizei _size;
 };
 
 #endif /* SRC_MESH */

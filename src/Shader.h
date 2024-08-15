@@ -18,6 +18,7 @@ public:
     void SetModel(glm::mat4 model);
     void SetView(glm::mat4 view);
     void SetProjection(glm::mat4 projection);
+    void SetLightPosition(glm::vec3 light);
 
 private:
     std::string readFile(std::string path);
@@ -29,6 +30,7 @@ private:
     GLuint _model;
     GLuint _view;
     GLuint _projection;
+    GLuint _light;
 };
 
 #endif /* SRC_SHADER */

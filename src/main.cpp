@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "Window.h"
 #include "Shader.h"
-#include "Mesh.h"
+#include "Model.h"
 
 #include <glm/glm.hpp>
 
@@ -15,20 +15,14 @@ int main()
     Camera camera(glm::radians(45.0f), (float)width / (float)height);
 
     shader.Use();
+
+    Model splash("models/cloud/cloud.obj");
+    glm::mat4 splashModel = glm::mat4(1.0f);
+
     shader.SetView(camera.GetView());
     shader.SetProjection(camera.GetProjection());
-
-    std::vector<Vertex> vertices = {
-        Vertex{.Position = glm::vec3(-0.5f, -0.5f, 0.0f), .Normal = glm::vec3(0.0f, 0.0f, 1.0f), .TexCoords = glm::vec2(0.0f, 0.0f)},
-        Vertex{.Position = glm::vec3(0.5f, -0.5f, 0.0f), .Normal = glm::vec3(0.0f, 0.0f, 1.0f), .TexCoords = glm::vec2(0.0f, 0.0f)},
-        Vertex{.Position = glm::vec3(0.0f, 0.5f, 0.0f), .Normal = glm::vec3(0.0f, 0.0f, 1.0f), .TexCoords = glm::vec2(0.0f, 0.0f)}};
-    std::vector<unsigned> indices = {0, 1, 2};
-    std::vector<Texture> textures = {};
-    Mesh triangle(vertices, indices, textures);
-
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::scale(model, glm::vec3(10.0f));
-    shader.SetModel(model);
+    shader.SetModel(splashModel);
+    shader.SetLightPosition(glm::vec3(20.0f, 20.0f, 20.0f));
 
     int run = 1;
     while (run)
@@ -47,7 +41,7 @@ int main()
 
         // update
         window.Clear();
-        triangle.Draw();
+        splash.Draw();
         window.Swap();
     }
 

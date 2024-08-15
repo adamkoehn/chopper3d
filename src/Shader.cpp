@@ -9,6 +9,7 @@ Shader::Shader(std::string vertPath, std::string fragPath)
     _model = glGetUniformLocation(_program, "Model");
     _view = glGetUniformLocation(_program, "View");
     _projection = glGetUniformLocation(_program, "Projection");
+    _light = glGetUniformLocation(_program, "LightPosition");
 }
 
 Shader::~Shader()
@@ -34,6 +35,11 @@ void Shader::SetView(glm::mat4 view)
 void Shader::SetProjection(glm::mat4 projection)
 {
     glUniformMatrix4fv(_projection, 1, GL_FALSE, glm::value_ptr(projection));
+}
+
+void Shader::SetLightPosition(glm::vec3 light)
+{
+    glUniform3fv(_light, 1, glm::value_ptr(light));
 }
 
 std::string Shader::readFile(std::string path)

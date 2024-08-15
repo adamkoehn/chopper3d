@@ -13,6 +13,8 @@ AC_PROG_CXX
 PKG_CHECK_MODULES([SDL], [sdl2], [], [AC_MSG_ERROR([sdl2 could not be found])])
 PKG_CHECK_MODULES([GLEW], [glew], [], [AC_MSG_ERROR([glew could not be found])])
 PKG_CHECK_MODULES([GLM], [glm], [], [AC_MSG_ERROR([glm could not be found])])
+PKG_CHECK_MODULES([ASSIMP], [assimp], [], [AC_MSG_ERROR([assimp could not be found])])
+PKG_CHECK_MODULES([STB], [stb], [], [AC_MSG_ERROR([stb could not be found])])
 
 # Checks for header files.
 

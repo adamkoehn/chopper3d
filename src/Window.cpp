@@ -17,7 +17,6 @@ Window::Window(int width, int height)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
 
     context = SDL_GL_CreateContext(window);
-    SDL_GL_MakeCurrent(window, context);
     SDL_GL_SetSwapInterval(1);
 
     GLenum init = glewInit();
