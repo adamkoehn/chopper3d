@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/matrix_inverse.hpp>
 
 #include "Model.h"
 #include "Shader.h"
@@ -25,6 +26,7 @@ private:
     glm::vec3 _scale;
     glm::vec3 _rotation;
     glm::mat4 _mat;
+    glm::mat3 _norm;
 };
 
 #endif /* SRC_DOODLE */

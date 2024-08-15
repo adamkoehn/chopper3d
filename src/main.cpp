@@ -5,6 +5,7 @@
 #include "Shader.h"
 #include "Model.h"
 #include "Scene.h"
+#include "Input.h"
 
 int main()
 {
@@ -23,8 +24,8 @@ int main()
     Model sun("models/sun/sun.obj");
     Model mountain("models/mountain/mountain.obj");
     Model chopper("models/chopper/chopper.obj");
-    
-    Doodle player(chopper, glm::vec3(0.0f));
+
+    Doodle player(chopper, glm::vec3(-7.0f, 4.5f, 0.0f));
     Doodle cloudOne(cloud, glm::vec3(13.5f, 11.5f, -59.5f));
     Doodle cloudTwo(cloud, glm::vec3(-20.5f, 16.0f, -52.5f));
     Doodle theSun(sun, glm::vec3(45.5f, 33.5f, -74.5f));
@@ -32,10 +33,12 @@ int main()
     Doodle mountainTwo(mountain, glm::vec3(-1.0f, -11.5f, -14.0f));
     Doodle mountainThree(mountain, glm::vec3(10.0f, -11.0f, -9.5f));
 
+    player.SetScale(glm::vec3(0.4f));
     cloudOne.SetRotation(glm::vec3(0.0f, 45.0f, 0.0f));
     cloudTwo.SetScale(glm::vec3(1.2f));
     theSun.SetScale(glm::vec3(3.0f));
     mountainOne.SetScale(glm::vec3(1.1f));
+    mountainOne.SetRotation(glm::vec3(0.0f, 90.0f, 0.0f));
     mountainTwo.SetScale(glm::vec3(1.1f));
     mountainThree.SetScale(glm::vec3(1.4f));
 
@@ -47,65 +50,21 @@ int main()
     scene.AddDoodle(&mountainTwo);
     scene.AddDoodle(&mountainThree);
 
-    scene.Update();
+    scene.Calculate();
 
     shader.SetView(camera.GetView());
     shader.SetProjection(camera.GetProjection());
     shader.SetLightPosition(glm::vec3(20.0f, 20.0f, 20.0f));
 
-    int run = 1;
-    while (run)
+    Input input(scene);
+
+    while (!input.DidRequestStop())
     {
-        SDL_Event event;
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_KEYDOWN)
-            {
-                switch (event.key.keysym.sym)
-                {
-                case SDLK_ESCAPE:
-                    run = 0;
-                    break;
+        input.Process();
 
-                // Game
-                
-
-
-                // Editor
-                // case SDLK_UP:
-                //     scene.Up();
-                //     break;
-                // case SDLK_DOWN:
-                //     scene.Down();
-                //     break;
-                // case SDLK_LEFT:
-                //     scene.Left();
-                //     break;
-                // case SDLK_RIGHT:
-                //     scene.Right();
-                //     break;
-                // case SDLK_w:
-                //     scene.Back();
-                //     break;
-                // case SDLK_s:
-                //     scene.Forward();
-                //     break;
-                // case SDLK_SPACE:
-                //     scene.Select();
-                //     break;
-                // case SDLK_d:
-                //     scene.ScaleUp();
-                //     break;
-                // case SDLK_a:
-                //     scene.ScaleDown();
-                //     break;
-                }
-            }
-        }
-
-        // update
         window.Clear();
         scene.Draw();
+
         window.Swap();
     }
 

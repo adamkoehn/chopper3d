@@ -10,6 +10,7 @@ Shader::Shader(std::string vertPath, std::string fragPath)
     _view = glGetUniformLocation(_program, "View");
     _projection = glGetUniformLocation(_program, "Projection");
     _light = glGetUniformLocation(_program, "LightPosition");
+    _normal = glGetUniformLocation(_program, "NormalMatrix");
 }
 
 Shader::~Shader()
@@ -35,6 +36,11 @@ void Shader::SetView(glm::mat4 view)
 void Shader::SetProjection(glm::mat4 projection)
 {
     glUniformMatrix4fv(_projection, 1, GL_FALSE, glm::value_ptr(projection));
+}
+
+void Shader::SetNormal(glm::mat3 normal)
+{
+    glUniformMatrix3fv(_normal, 1, GL_FALSE, glm::value_ptr(normal));
 }
 
 void Shader::SetLightPosition(glm::vec3 light)

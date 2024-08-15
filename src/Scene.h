@@ -11,7 +11,7 @@ class Scene
 public:
     Scene(Shader &shader);
     void AddDoodle(Doodle *doodle);
-    void Update();
+    void Calculate();
     void Draw();
     void Select();
     void Up();

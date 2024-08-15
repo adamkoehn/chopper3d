@@ -12,9 +12,10 @@ uniform sampler2D Texture;
 out vec4 FragColor;
 
 void main() {
+    vec3 ambient = vec3(0.3);
     vec3 norm = normalize(Normal);
     vec3 lightDir = normalize(LightPosition - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    vec3 diffuse = (diff * vec3(0.5)) + vec3(0.5);
-    FragColor = texture(Texture, TexCoords) * vec4(diffuse, 1.0);
+    vec3 diffuse = vec3(1.0) * diff;
+    FragColor = vec4(diffuse + ambient, 1.0) * texture(Texture, TexCoords);
 }

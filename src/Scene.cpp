@@ -10,7 +10,7 @@ void Scene::AddDoodle(Doodle *doodle)
     _doodles.push_back(doodle);
 }
 
-void Scene::Update()
+void Scene::Calculate()
 {
     for (std::vector<Doodle *>::iterator it = _doodles.begin(); it != _doodles.end(); ++it)
     {

@@ -39,10 +39,12 @@ void Doodle::Calculate()
     _mat = glm::rotate(_mat, glm::radians(_rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
     _mat = glm::rotate(_mat, glm::radians(_rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
     _mat = glm::scale(_mat, _scale);
+    _norm = glm::inverseTranspose(_mat);
 }
 
 void Doodle::Draw(Shader &shader)
 {
     shader.SetModel(_mat);
+    shader.SetNormal(_norm);
     _model.Draw();
 }
