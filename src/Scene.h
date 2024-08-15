@@ -13,9 +13,21 @@ public:
     void AddDoodle(Doodle *doodle);
     void Update();
     void Draw();
+    void Select();
+    void Up();
+    void Down();
+    void Left();
+    void Right();
+    void Back();
+    void Forward();
+    void ScaleUp();
+    void ScaleDown();
+    void MoveDoodle(glm::vec3 move);
+    void ScaleDoodle(glm::vec3 scale);
 
 private:
     Shader &_shader;
+    int _selected;
     std::vector<Doodle *> _doodles;
 };
 

@@ -6,6 +6,16 @@ Doodle::Doodle(Model &model, glm::vec3 position)
     SetPosition(position);
 }
 
+glm::vec3 Doodle::GetPosition()
+{
+    return _position;
+}
+
+glm::vec3 Doodle::GetScale()
+{
+    return _scale;
+}
+
 void Doodle::SetPosition(glm::vec3 position)
 {
     _position = position;

@@ -21,16 +21,31 @@ int main()
 
     Model cloud("models/cloud/cloud.obj");
     Model sun("models/sun/sun.obj");
-    Doodle cloudOne(cloud, glm::vec3(35.0f, 10.0f, -80.0f));
-    Doodle cloudTwo(cloud, glm::vec3(-30.0f, 5.0f, -80.0f));
-    Doodle theSun(sun, glm::vec3(50.0f, 40.0f, -80.0f));
+    Model mountain("models/mountain/mountain.obj");
+    Model chopper("models/chopper/chopper.obj");
+    
+    Doodle player(chopper, glm::vec3(0.0f));
+    Doodle cloudOne(cloud, glm::vec3(13.5f, 11.5f, -59.5f));
+    Doodle cloudTwo(cloud, glm::vec3(-20.5f, 16.0f, -52.5f));
+    Doodle theSun(sun, glm::vec3(45.5f, 33.5f, -74.5f));
+    Doodle mountainOne(mountain, glm::vec3(-12.5f, -11.0f, -12.0f));
+    Doodle mountainTwo(mountain, glm::vec3(-1.0f, -11.5f, -14.0f));
+    Doodle mountainThree(mountain, glm::vec3(10.0f, -11.0f, -9.5f));
 
     cloudOne.SetRotation(glm::vec3(0.0f, 45.0f, 0.0f));
+    cloudTwo.SetScale(glm::vec3(1.2f));
     theSun.SetScale(glm::vec3(3.0f));
+    mountainOne.SetScale(glm::vec3(1.1f));
+    mountainTwo.SetScale(glm::vec3(1.1f));
+    mountainThree.SetScale(glm::vec3(1.4f));
 
+    scene.AddDoodle(&player);
     scene.AddDoodle(&cloudOne);
     scene.AddDoodle(&cloudTwo);
     scene.AddDoodle(&theSun);
+    scene.AddDoodle(&mountainOne);
+    scene.AddDoodle(&mountainTwo);
+    scene.AddDoodle(&mountainThree);
 
     scene.Update();
 
@@ -46,9 +61,44 @@ int main()
         {
             if (event.type == SDL_KEYDOWN)
             {
-                if (event.key.keysym.sym == SDLK_ESCAPE)
+                switch (event.key.keysym.sym)
                 {
+                case SDLK_ESCAPE:
                     run = 0;
+                    break;
+
+                // Game
+                
+
+
+                // Editor
+                // case SDLK_UP:
+                //     scene.Up();
+                //     break;
+                // case SDLK_DOWN:
+                //     scene.Down();
+                //     break;
+                // case SDLK_LEFT:
+                //     scene.Left();
+                //     break;
+                // case SDLK_RIGHT:
+                //     scene.Right();
+                //     break;
+                // case SDLK_w:
+                //     scene.Back();
+                //     break;
+                // case SDLK_s:
+                //     scene.Forward();
+                //     break;
+                // case SDLK_SPACE:
+                //     scene.Select();
+                //     break;
+                // case SDLK_d:
+                //     scene.ScaleUp();
+                //     break;
+                // case SDLK_a:
+                //     scene.ScaleDown();
+                //     break;
                 }
             }
         }

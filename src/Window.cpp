@@ -26,7 +26,8 @@ Window::Window(int width, int height)
     }
 
     glViewport(0, 0, width, height);
-    glClearColor(0.2f, 0.3f, 0.3f, 0.0f);
+    // rgb(103, 144, 254)
+    glClearColor(0.4f, 0.56f, 0.99f, 0.0f);
     glEnable(GL_DEPTH_TEST);
 }
 

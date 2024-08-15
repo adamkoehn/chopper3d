@@ -11,6 +11,8 @@ class Doodle
 {
 public:
     Doodle(Model &model, glm::vec3 position);
+    glm::vec3 GetPosition();
+    glm::vec3 GetScale();
     void SetPosition(glm::vec3 position);
     void SetScale(glm::vec3 scale);
     void SetRotation(glm::vec3 rotation);
