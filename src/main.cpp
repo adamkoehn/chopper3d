@@ -1,9 +1,10 @@
+#include <glm/glm.hpp>
+
 #include "Camera.h"
 #include "Window.h"
 #include "Shader.h"
 #include "Model.h"
-
-#include <glm/glm.hpp>
+#include "Scene.h"
 
 int main()
 {
@@ -16,12 +17,25 @@ int main()
 
     shader.Use();
 
-    Model splash("models/cloud/cloud.obj");
-    glm::mat4 splashModel = glm::mat4(1.0f);
+    Scene scene(shader);
+
+    Model cloud("models/cloud/cloud.obj");
+    Model sun("models/sun/sun.obj");
+    Doodle cloudOne(cloud, glm::vec3(35.0f, 10.0f, -80.0f));
+    Doodle cloudTwo(cloud, glm::vec3(-30.0f, 5.0f, -80.0f));
+    Doodle theSun(sun, glm::vec3(50.0f, 40.0f, -80.0f));
+
+    cloudOne.SetRotation(glm::vec3(0.0f, 45.0f, 0.0f));
+    theSun.SetScale(glm::vec3(3.0f));
+
+    scene.AddDoodle(&cloudOne);
+    scene.AddDoodle(&cloudTwo);
+    scene.AddDoodle(&theSun);
+
+    scene.Update();
 
     shader.SetView(camera.GetView());
     shader.SetProjection(camera.GetProjection());
-    shader.SetModel(splashModel);
     shader.SetLightPosition(glm::vec3(20.0f, 20.0f, 20.0f));
 
     int run = 1;
@@ -41,7 +55,7 @@ int main()
 
         // update
         window.Clear();
-        splash.Draw();
+        scene.Draw();
         window.Swap();
     }
 

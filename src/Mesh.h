@@ -23,7 +23,7 @@ struct Texture
 class Mesh
 {
 public:
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
+    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
     ~Mesh();
     void Draw();
 
@@ -35,6 +35,7 @@ private:
     GLuint _vbo;
     GLuint _ebo;
     GLsizei _size;
+    GLuint _texture;
 };
 
 #endif /* SRC_MESH */

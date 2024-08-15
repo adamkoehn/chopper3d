@@ -5,6 +5,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <stb/stb_image.h>
+#include <GL/glew.h>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -20,8 +21,9 @@ public:
 private:
     void loadModel(std::string path);
     void processNode(aiNode *node, const aiScene *scene);
-    Mesh *processMesh(aiMesh *mesh);
-    // std::vector<Texture> loadMaterialTextures(aiMaterial *material, aiTextureType type, std::string typeName);
+    Mesh *processMesh(aiMesh *mesh, const aiScene *scene);
+    std::vector<Texture> loadMaterialTextures(aiMaterial *material, aiTextureType type, std::string typeName);
+    GLuint loadTexture(aiString file);
 
 private:
     std::vector<Mesh *> _meshes;

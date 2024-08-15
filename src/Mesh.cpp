@@ -1,8 +1,9 @@
 #include "Mesh.h"
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices)
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures)
 {
     _size = indices.size();
+    _texture = textures[0].Id;
 
     glGenVertexArrays(1, &_vao);
     glBindVertexArray(_vao);
@@ -36,6 +37,7 @@ Mesh::~Mesh()
 
 void Mesh::Draw()
 {
+    glBindTexture(GL_TEXTURE_2D, _texture);
     glBindVertexArray(_vao);
     glDrawElements(GL_TRIANGLES, _size, GL_UNSIGNED_INT, 0);
 }
