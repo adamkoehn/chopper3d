@@ -5,6 +5,11 @@ Input::Input(Scene &scene)
 {
 }
 
+void Input::AddController(Controller *controller)
+{
+    _controllers.push_back(controller);
+}
+
 void Input::Process()
 {
     SDL_Event event;
@@ -18,6 +23,11 @@ void Input::Process()
                 _stop = true;
                 break;
             }
+        }
+
+        if (event.type == SDL_QUIT)
+        {
+            _stop = true;
         }
 
         switch (_mode)
@@ -79,6 +89,13 @@ void Input::processDesignMode(SDL_Event &event)
 
 void Input::processGameMode(SDL_Event &event)
 {
+    if (_controllers.size() < 1)
+    {
+        return;
+    }
+
+    glm::vec2 axis = _controllers[0]->GetAxis();
+
     if (event.type == SDL_KEYDOWN)
     {
         switch (event.key.keysym.sym)
@@ -86,6 +103,59 @@ void Input::processGameMode(SDL_Event &event)
         case SDLK_m:
             _mode = MODE_DESIGN;
             break;
+        case SDLK_w:
+            axis.y += 1.0f;
+            break;
+        case SDLK_s:
+            axis.y -= 1.0f;
+            break;
+        case SDLK_a:
+            axis.x -= 1.0f;
+            break;
+        case SDLK_d:
+            axis.x += 1.0f;
+            break;
         }
     }
+
+    if (event.type == SDL_KEYUP)
+    {
+        switch (event.key.keysym.sym)
+        {
+        case SDLK_w:
+            axis.y -= 1.0f;
+            break;
+        case SDLK_s:
+            axis.y += 1.0f;
+            break;
+        case SDLK_a:
+            axis.x += 1.0f;
+            break;
+        case SDLK_d:
+            axis.x -= 1.0f;
+            break;
+        }
+    }
+
+    if (axis.x > 1.0f)
+    {
+        axis.x = 1.0f;
+    }
+
+    if (axis.x < -1.0f)
+    {
+        axis.x = -1.0f;
+    }
+
+    if (axis.y > 1.0f)
+    {
+        axis.y = 1.0f;
+    }
+
+    if (axis.y < -1.0f)
+    {
+        axis.y = -1.0f;
+    }
+
+    _controllers[0]->SetAxis(glm::vec2(axis));
 }

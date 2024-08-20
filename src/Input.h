@@ -2,7 +2,9 @@
 #define SRC_INPUT
 
 #include <SDL2/SDL.h>
+#include <vector>
 
+#include "Controller.h"
 #include "Scene.h"
 
 enum InputMode
@@ -17,6 +19,7 @@ public:
     Input(Scene &scene);
     void Process();
     bool DidRequestStop();
+    void AddController(Controller *controller);
 
 private:
     void processDesignMode(SDL_Event &event);
@@ -26,6 +29,7 @@ private:
     Scene &_scene;
     bool _stop;
     InputMode _mode;
+    std::vector<Controller *> _controllers;
 };
 
 #endif /* SRC_INPUT */

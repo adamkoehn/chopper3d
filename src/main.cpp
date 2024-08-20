@@ -6,6 +6,7 @@
 #include "Model.h"
 #include "Scene.h"
 #include "Input.h"
+#include "Player.h"
 
 int main()
 {
@@ -24,8 +25,10 @@ int main()
     Model sun("models/sun/sun.obj");
     Model mountain("models/mountain/mountain.obj");
     Model chopper("models/chopper/chopper.obj");
+    Model tank("models/tank/tank.obj");
 
-    Doodle player(chopper, glm::vec3(-7.0f, 4.5f, 0.0f));
+    Doodle hero(chopper, glm::vec3(-7.0f, 4.5f, 0.0f));
+    Doodle sampleTank(tank, glm::vec3(9.0f, -7.0f, 0.0f));
     Doodle cloudOne(cloud, glm::vec3(13.5f, 11.5f, -59.5f));
     Doodle cloudTwo(cloud, glm::vec3(-20.5f, 16.0f, -52.5f));
     Doodle theSun(sun, glm::vec3(45.5f, 33.5f, -74.5f));
@@ -33,7 +36,8 @@ int main()
     Doodle mountainTwo(mountain, glm::vec3(-1.0f, -11.5f, -14.0f));
     Doodle mountainThree(mountain, glm::vec3(10.0f, -11.0f, -9.5f));
 
-    player.SetScale(glm::vec3(0.4f));
+    hero.SetScale(glm::vec3(0.4f));
+    sampleTank.SetScale(glm::vec3(0.2f));
     cloudOne.SetRotation(glm::vec3(0.0f, 45.0f, 0.0f));
     cloudTwo.SetScale(glm::vec3(1.2f));
     theSun.SetScale(glm::vec3(3.0f));
@@ -42,7 +46,8 @@ int main()
     mountainTwo.SetScale(glm::vec3(1.1f));
     mountainThree.SetScale(glm::vec3(1.4f));
 
-    scene.AddDoodle(&player);
+    scene.AddDoodle(&hero);
+    scene.AddDoodle(&sampleTank);
     scene.AddDoodle(&cloudOne);
     scene.AddDoodle(&cloudTwo);
     scene.AddDoodle(&theSun);
@@ -57,10 +62,20 @@ int main()
     shader.SetLightPosition(glm::vec3(20.0f, 20.0f, 20.0f));
 
     Input input(scene);
+    Controller keyboard;
+
+    input.AddController(&keyboard);
+
+    Player player(hero, 0.125f);
+
+    player.AttachController(&keyboard);
 
     while (!input.DidRequestStop())
     {
         input.Process();
+
+        player.Update();
+        hero.Calculate();
 
         window.Clear();
         scene.Draw();
