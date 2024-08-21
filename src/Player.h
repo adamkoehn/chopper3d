@@ -11,7 +11,7 @@ class Player
 public:
     Player(Doodle &doodle, float speed);
     void AttachController(Controller *controller);
-    void Update();
+    void Update(float deltaTime);
 
 private:
     Doodle &_doodle;

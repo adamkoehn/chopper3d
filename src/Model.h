@@ -28,6 +28,8 @@ private:
 private:
     std::vector<Mesh *> _meshes;
     std::string _directory;
+    glm::vec3 _max;
+    glm::vec3 _min;
 };
 
 #endif /* SRC_MODEL */

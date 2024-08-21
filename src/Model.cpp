@@ -62,6 +62,27 @@ Mesh *Model::processMesh(aiMesh *mesh, const aiScene *scene)
         position.z = mesh->mVertices[i].z;
         vertex.Position = position;
 
+        if (i == 0)
+        {
+            _max = position;
+            _min = position;
+        }
+        else
+        {
+            if (_max.x < position.x)
+                _max.x = position.x;
+            if (_min.x > position.x)
+                _min.x = position.x;
+            if (_max.y < position.y)
+                _max.y = position.y;
+            if (_min.y > position.y)
+                _min.y = position.y;
+            if (_max.z < position.z)
+                _max.z = position.z;
+            if (_min.z > position.z)
+                _min.z = position.z;
+        }
+
         glm::vec3 normal;
         normal.x = mesh->mNormals[i].x;
         normal.y = mesh->mNormals[i].y;
@@ -96,7 +117,9 @@ Mesh *Model::processMesh(aiMesh *mesh, const aiScene *scene)
     std::vector<Texture> diffuse = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
     textures.insert(textures.end(), diffuse.begin(), diffuse.end());
 
-    return new Mesh(vertices, indices, textures);
+    Mesh *output = new Mesh(vertices, indices, textures);
+
+    return output;
 }
 
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial *material, aiTextureType type, std::string typeName)

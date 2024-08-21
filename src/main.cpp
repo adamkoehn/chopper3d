@@ -66,15 +66,23 @@ int main()
 
     input.AddController(&keyboard);
 
-    Player player(hero, 0.125f);
+    Player player(hero, 9.0f);
 
     player.AttachController(&keyboard);
 
+    Uint32 last = SDL_GetTicks();
+    Uint32 current = last;
+    float delta = 0.0f;
+
     while (!input.DidRequestStop())
     {
+        last = current;
+        current = SDL_GetTicks();
+        delta = ((float)current - (float)last) / 1000.0f;
+
         input.Process();
 
-        player.Update();
+        player.Update(delta);
         hero.Calculate();
 
         window.Clear();
