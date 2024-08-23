@@ -115,6 +115,9 @@ void Input::processGameMode(SDL_Event &event)
         case SDLK_d:
             axis.x += 1.0f;
             break;
+        case SDLK_SPACE:
+            _controllers[0]->StartShooting();
+            break;
         }
     }
 
@@ -133,6 +136,9 @@ void Input::processGameMode(SDL_Event &event)
             break;
         case SDLK_d:
             axis.x -= 1.0f;
+            break;
+        case SDLK_SPACE:
+            _controllers[0]->StopShooting();
             break;
         }
     }

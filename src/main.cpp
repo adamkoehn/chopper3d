@@ -19,7 +19,7 @@ int main()
 
     shader.Use();
 
-    Scene scene(shader);
+    Scene scene;
 
     Model cloud("models/cloud/cloud.obj");
     Model sun("models/sun/sun.obj");
@@ -86,7 +86,7 @@ int main()
         hero.Calculate();
 
         window.Clear();
-        scene.Draw();
+        scene.Draw(shader);
 
         window.Swap();
     }

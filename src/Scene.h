@@ -9,10 +9,10 @@
 class Scene
 {
 public:
-    Scene(Shader &shader);
+    Scene();
     void AddDoodle(Doodle *doodle);
     void Calculate();
-    void Draw();
+    void Draw(Shader &shader);
     void Select();
     void Up();
     void Down();
@@ -26,7 +26,6 @@ public:
     void ScaleDoodle(glm::vec3 scale);
 
 private:
-    Shader &_shader;
     int _selected;
     std::vector<Doodle *> _doodles;
 };

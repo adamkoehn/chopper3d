@@ -1,7 +1,7 @@
 #include "Scene.h"
 
-Scene::Scene(Shader &shader)
-    : _shader(shader), _selected(0)
+Scene::Scene()
+    : _selected(0)
 {
 }
 
@@ -18,11 +18,11 @@ void Scene::Calculate()
     }
 }
 
-void Scene::Draw()
+void Scene::Draw(Shader &shader)
 {
     for (std::vector<Doodle *>::iterator it = _doodles.begin(); it != _doodles.end(); ++it)
     {
-        (*it)->Draw(_shader);
+        (*it)->Draw(shader);
     }
 }
 
