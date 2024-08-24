@@ -1,29 +1,17 @@
 #ifndef SRC_MESH
 #define SRC_MESH
 
+#include <tiny_gltf.h>
 #include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <string>
 #include <vector>
 #include <iostream>
 
-struct Vertex
-{
-    glm::vec3 Position;
-    glm::vec3 Normal;
-    glm::vec2 TexCoords;
-};
-
-struct Texture
-{
-    unsigned int Id;
-    std::string Type;
-};
-
 class Mesh
 {
 public:
-    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+    Mesh(tinygltf::Model &model, tinygltf::Primitive &primitive);
     ~Mesh();
     void Draw();
 
@@ -32,9 +20,12 @@ private:
 
 private:
     GLuint _vao;
-    GLuint _vbo;
+    std::vector<GLuint> _vbos;
     GLuint _ebo;
-    GLsizei _size;
+    GLsizei _eboCount;
+    GLenum _eboType;
+    GLenum _eboMode;
+    size_t _eboOffset;
     GLuint _texture;
 };
 

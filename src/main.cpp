@@ -21,20 +21,21 @@ int main()
 
     Scene scene;
 
-    Model cloud("models/cloud/cloud.obj");
-    Model sun("models/sun/sun.obj");
-    Model mountain("models/mountain/mountain.obj");
-    Model chopper("models/chopper/chopper.obj");
-    Model tank("models/tank/tank.obj");
+    Model cloud("models/cloud/cloud.glb");
+    Model sun("models/sun/sun.glb");
+    Model mountain("models/mountain/mountain.glb");
+    Model chopper("models/chopper/chopper.glb");
+    Model tank("models/tank/tank.glb");
+    Model splash("models/splash/chopper3d.glb");
 
     Doodle hero(chopper, glm::vec3(-7.0f, 4.5f, 0.0f));
     Doodle sampleTank(tank, glm::vec3(9.0f, -7.0f, 0.0f));
     Doodle cloudOne(cloud, glm::vec3(13.5f, 11.5f, -59.5f));
     Doodle cloudTwo(cloud, glm::vec3(-20.5f, 16.0f, -52.5f));
     Doodle theSun(sun, glm::vec3(45.5f, 33.5f, -74.5f));
-    Doodle mountainOne(mountain, glm::vec3(-12.5f, -11.0f, -12.0f));
-    Doodle mountainTwo(mountain, glm::vec3(-1.0f, -11.5f, -14.0f));
-    Doodle mountainThree(mountain, glm::vec3(10.0f, -11.0f, -9.5f));
+    Doodle mountainOne(mountain, glm::vec3(-12.5f, -8.5f, -12.0f));
+    Doodle mountainTwo(mountain, glm::vec3(-1.0f, -10.0f, -14.0f));
+    Doodle mountainThree(mountain, glm::vec3(10.0f, -8.0f, -9.5f));
 
     hero.SetScale(glm::vec3(0.4f));
     sampleTank.SetScale(glm::vec3(0.2f));

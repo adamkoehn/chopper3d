@@ -1,10 +1,7 @@
 #ifndef SRC_MODEL
 #define SRC_MODEL
 
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include <stb/stb_image.h>
+#include <tiny_gltf.h>
 #include <GL/glew.h>
 #include <string>
 #include <vector>
@@ -20,10 +17,7 @@ public:
 
 private:
     void loadModel(std::string path);
-    void processNode(aiNode *node, const aiScene *scene);
-    Mesh *processMesh(aiMesh *mesh, const aiScene *scene);
-    std::vector<Texture> loadMaterialTextures(aiMaterial *material, aiTextureType type, std::string typeName);
-    GLuint loadTexture(aiString file);
+    void processNode(tinygltf::Model &model, tinygltf::Node &node);
 
 private:
     std::vector<Mesh *> _meshes;
