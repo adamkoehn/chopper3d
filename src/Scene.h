@@ -5,12 +5,15 @@
 
 #include "Shader.h"
 #include "Doodle.h"
+#include "Model.h"
+#include "Input.h"
+#include "Controller.h"
+#include "Player.h"
 
 class Scene
 {
 public:
     Scene();
-    void AddDoodle(Doodle *doodle);
     void Calculate();
     void Draw(Shader &shader);
     void Select();
@@ -24,10 +27,18 @@ public:
     void ScaleDown();
     void MoveDoodle(glm::vec3 move);
     void ScaleDoodle(glm::vec3 scale);
+    void Load();
+    bool DidRequestStop();
+    void ProcessInput();
+    void Update(float deltaTime);
 
 private:
     int _selected;
-    std::vector<Doodle *> _doodles;
+    std::vector<Doodle> _doodles;
+    std::vector<Model> _models;
+    std::vector<Player> _players;
+    Input _input;
+    Controller _keyboard;
 };
 
 #endif /* SRC_SCENE */

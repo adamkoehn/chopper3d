@@ -1,7 +1,10 @@
 #include "Doodle.h"
 
-Doodle::Doodle(Model &model, glm::vec3 position)
-    : _model(model), _position(glm::vec3(0.0f)), _scale(glm::vec3(1.0f)), _rotation(glm::vec3(0.0f))
+Doodle::Doodle(Model &model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
+    : _model(model),
+      _position(glm::vec3(0.0f)),
+      _scale(scale),
+      _rotation(rotation)
 {
     SetPosition(position);
 }
