@@ -24,4 +24,4 @@ stamp-h1
 **/*.o
 
 # Remove later
-models/
+models/**/*.blend*
