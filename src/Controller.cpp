@@ -24,3 +24,8 @@ void Controller::StopShooting()
 {
     _shooting = false;
 }
+
+bool Controller::IsShooting()
+{
+    return _shooting;
+}

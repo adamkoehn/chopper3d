@@ -9,6 +9,7 @@
 #include "Input.h"
 #include "Controller.h"
 #include "Player.h"
+#include "Queue.h"
 
 class Scene
 {
@@ -34,6 +35,7 @@ public:
 
 private:
     int _selected;
+    Queue _queue;
     std::vector<Doodle> _doodles;
     std::vector<Model> _models;
     std::vector<Player> _players;

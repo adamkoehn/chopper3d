@@ -1,9 +1,9 @@
 #include "Scene.h"
 
 Scene::Scene()
-    : _selected(0)
+    : _selected(0), _queue(Queue(100))
 {
-    _doodles.reserve(100);
+    _doodles.reserve(20);
     _models.reserve(20);
     _players.reserve(4);
     _input.AddController(&_keyboard);
@@ -101,6 +101,7 @@ void Scene::Load()
     _models.push_back(Model("models/chopper/chopper.glb"));   // 3
     _models.push_back(Model("models/tank/tank.glb"));         // 4
     _models.push_back(Model("models/ground/ground.glb"));     // 5
+    _models.push_back(Model("models/bullet/bullet.glb"));     // 6
 
     _doodles.push_back(Doodle(_models[3], glm::vec3(-7.0f, 4.5f, 0.0f), glm::vec3(0.4f)));                                   // chopper 0
     _doodles.push_back(Doodle(_models[4], glm::vec3(9.0f, -7.0f, 0.0f), glm::vec3(0.2f)));                                   // tank 1
@@ -111,10 +112,11 @@ void Scene::Load()
     _doodles.push_back(Doodle(_models[2], glm::vec3(-2.5f, -6.0f, -14.0f), glm::vec3(1.1f)));                                // mountain 6
     _doodles.push_back(Doodle(_models[2], glm::vec3(9.0f, -5.0f, -13.0f), glm::vec3(1.4f)));                                 // mountain 7
     _doodles.push_back(Doodle(_models[5], glm::vec3(0.0f, -8.5f, -28.5f)));                                                  // ground 8
+    _doodles.push_back(Doodle(_models[6], glm::vec3(0.0f), glm::vec3(0.2f), glm::vec3(0.0f, 0.0f, -135.0f)));                // bullet 9
 
     Calculate();
 
-    _players.push_back(Player(_doodles[0], 9.0f));
+    _players.push_back(Player(_queue, _doodles[0], 9.0f, 0.25f));
     _players[0].AttachController(&_keyboard);
 }
 
@@ -130,6 +132,11 @@ void Scene::ProcessInput()
 
 void Scene::Update(float deltaTime)
 {
-    _players[0].Update(deltaTime);
+    for (std::vector<Player>::iterator player = _players.begin(); player != _players.end(); ++player)
+    {
+        player->Update(deltaTime);
+    }
+
     _doodles[0].Calculate();
+    _queue.Update();
 }

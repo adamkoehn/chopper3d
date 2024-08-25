@@ -2,6 +2,7 @@
 #define SRC_CONTROLLER
 
 #include <glm/glm.hpp>
+#include <iostream>
 
 class Controller
 {
@@ -11,6 +12,7 @@ public:
     glm::vec2 GetAxis();
     void StartShooting();
     void StopShooting();
+    bool IsShooting();
 
 private:
     glm::vec2 _axis;
