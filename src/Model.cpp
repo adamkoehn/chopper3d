@@ -1,7 +1,8 @@
-// #define STB_IMAGE_IMPLEMENTATION
-// #include <stb/stb.h>
-
 #include "Model.h"
+
+Model::Model()
+{
+}
 
 Model::Model(std::string path)
 {

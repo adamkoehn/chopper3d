@@ -10,12 +10,12 @@
 #include "Controller.h"
 #include "Player.h"
 #include "Queue.h"
+#include "Manager.h"
 
 class Scene
 {
 public:
     Scene();
-    void Calculate();
     void Draw(Shader &shader);
     void Select();
     void Up();
@@ -41,6 +41,7 @@ private:
     std::vector<Player> _players;
     Input _input;
     Controller _keyboard;
+    Manager _manager;
 };
 
 #endif /* SRC_SCENE */

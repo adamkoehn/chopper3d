@@ -12,6 +12,7 @@
 class Model
 {
 public:
+    Model();
     Model(std::string path);
     void Draw();
 

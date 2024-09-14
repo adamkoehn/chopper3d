@@ -1,0 +1,50 @@
+#ifndef SRC_MANAGER
+#define SRC_MANAGER
+
+#include <map>
+#include <string>
+#include <vector>
+
+#include "Model.h"
+#include "Doodle.h"
+#include "Shader.h"
+
+class Manager
+{
+public:
+    Manager();
+    ~Manager();
+    void LoadLevel();
+    void UpdateStaticAssets();
+    void Update();
+    void Draw(Shader &shader);
+    unsigned int CreateDynamicDoodle(
+        std::string model,
+        glm::vec3 position = glm::vec3(0.0f),
+        glm::vec3 scale = glm::vec3(1.0f),
+        glm::vec3 rotation = glm::vec3(0.0f));
+    Doodle &GetDynamicDoodle(unsigned int at);
+    void DeleteDynamicDoodle(unsigned int at);
+
+private:
+    void addModel(std::string name, std::string path);
+    void addStaticDoodle(
+        std::string model,
+        glm::vec3 position = glm::vec3(0.0f),
+        glm::vec3 scale = glm::vec3(1.0f),
+        glm::vec3 rotation = glm::vec3(0.0f));
+
+private:
+    static const int MAX_MODEL_BUF_SIZE = 20;
+    static const int MAX_STATIC_ASSET_SIZE = 20;
+    static const int MAX_DYNAMIC_ASSET_SIZE = 200;
+    int _modelBufCount;
+    int _staticAssetCount;
+    int _dynamicAssetCount;
+    std::map<std::string, Model *> _models;
+    Model _modelBuf[MAX_MODEL_BUF_SIZE];
+    Doodle _staticAssets[MAX_STATIC_ASSET_SIZE];
+    Doodle _dynamicAssets[MAX_DYNAMIC_ASSET_SIZE];
+};
+
+#endif /* SRC_MANAGER */

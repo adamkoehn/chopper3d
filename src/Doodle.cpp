@@ -1,12 +1,15 @@
 #include "Doodle.h"
 
-Doodle::Doodle(Model &model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
+Doodle::Doodle()
+{
+}
+
+Doodle::Doodle(Model *model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
     : _model(model),
-      _position(glm::vec3(0.0f)),
+      _position(position),
       _scale(scale),
       _rotation(rotation)
 {
-    SetPosition(position);
 }
 
 glm::vec3 Doodle::GetPosition()
@@ -49,5 +52,5 @@ void Doodle::Draw(Shader &shader)
 {
     shader.SetModel(_mat);
     shader.SetNormal(_norm);
-    _model.Draw();
+    _model->Draw();
 }

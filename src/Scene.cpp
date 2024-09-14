@@ -9,20 +9,9 @@ Scene::Scene()
     _input.AddController(&_keyboard);
 }
 
-void Scene::Calculate()
-{
-    for (std::vector<Doodle>::iterator it = _doodles.begin(); it != _doodles.end(); ++it)
-    {
-        it->Calculate();
-    }
-}
-
 void Scene::Draw(Shader &shader)
 {
-    for (std::vector<Doodle>::iterator it = _doodles.begin(); it != _doodles.end(); ++it)
-    {
-        it->Draw(shader);
-    }
+    _manager.Draw(shader);
 }
 
 void Scene::Up()
@@ -95,28 +84,15 @@ void Scene::ScaleDoodle(glm::vec3 scale)
 
 void Scene::Load()
 {
-    _models.push_back(Model("models/cloud/cloud.glb"));       // 0
-    _models.push_back(Model("models/sun/sun.glb"));           // 1
-    _models.push_back(Model("models/mountain/mountain.glb")); // 2
-    _models.push_back(Model("models/chopper/chopper.glb"));   // 3
-    _models.push_back(Model("models/tank/tank.glb"));         // 4
-    _models.push_back(Model("models/ground/ground.glb"));     // 5
-    _models.push_back(Model("models/bullet/bullet.glb"));     // 6
+    _manager.LoadLevel();
 
-    _doodles.push_back(Doodle(_models[3], glm::vec3(-7.0f, 4.5f, 0.0f), glm::vec3(0.4f)));                                   // chopper 0
-    _doodles.push_back(Doodle(_models[4], glm::vec3(9.0f, -7.0f, 0.0f), glm::vec3(0.2f)));                                   // tank 1
-    _doodles.push_back(Doodle(_models[0], glm::vec3(6.0f, 16.5f, -59.5f), glm::vec3(1.0f), glm::vec3(0.0f, 45.0f, 0.0f)));   // cloud 2
-    _doodles.push_back(Doodle(_models[0], glm::vec3(-23.5f, 22.0f, -52.5f), glm::vec3(1.2f)));                               // cloud 3
-    _doodles.push_back(Doodle(_models[1], glm::vec3(45.5f, 33.5f, -74.5f), glm::vec3(3.0f)));                                // sun 4
-    _doodles.push_back(Doodle(_models[2], glm::vec3(-12.5f, -4.5f, -12.0f), glm::vec3(1.1f), glm::vec3(0.0f, 90.0f, 0.0f))); // mountain 5
-    _doodles.push_back(Doodle(_models[2], glm::vec3(-2.5f, -6.0f, -14.0f), glm::vec3(1.1f)));                                // mountain 6
-    _doodles.push_back(Doodle(_models[2], glm::vec3(9.0f, -5.0f, -13.0f), glm::vec3(1.4f)));                                 // mountain 7
-    _doodles.push_back(Doodle(_models[5], glm::vec3(0.0f, -8.5f, -28.5f)));                                                  // ground 8
-    _doodles.push_back(Doodle(_models[6], glm::vec3(0.0f), glm::vec3(0.2f), glm::vec3(0.0f, 0.0f, -135.0f)));                // bullet 9
+    unsigned int chopper = _manager.CreateDynamicDoodle("chopper", glm::vec3(-7.0f, 4.5f, 0.0f), glm::vec3(0.4f));
+    _manager.CreateDynamicDoodle("tank", glm::vec3(9.0f, -7.0f, 0.0f), glm::vec3(0.2f));
+    _manager.CreateDynamicDoodle("bullet", glm::vec3(0.0f), glm::vec3(0.2f), glm::vec3(0.0f, 0.0f, -135.0f));
 
-    Calculate();
+    _manager.UpdateStaticAssets();
 
-    _players.push_back(Player(_queue, _doodles[0], 9.0f, 0.25f));
+    _players.push_back(Player(_queue, _manager.GetDynamicDoodle(chopper), 9.0f, 0.25f));
     _players[0].AttachController(&_keyboard);
 }
 
@@ -137,6 +113,6 @@ void Scene::Update(float deltaTime)
         player->Update(deltaTime);
     }
 
-    _doodles[0].Calculate();
+    _manager.Update();
     _queue.Update();
 }
