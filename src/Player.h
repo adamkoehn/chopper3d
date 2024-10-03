@@ -6,13 +6,12 @@
 #include "Controller.h"
 #include "Doodle.h"
 #include "Queue.h"
-#include "commands/Shoot.h"
 
 class Player
 {
 public:
-    Player(Queue &queue, Doodle &doodle, float flightSpeed, float gunFrequency);
-    void AttachController(Controller *controller);
+    Player() = default;
+    void SetUp(Queue *queue, Doodle *doodle, Controller *controller, float flightSpeed, float gunFrequency);
     void Update(float deltaTime);
 
 private:
@@ -20,12 +19,12 @@ private:
     void updateShooting(float deltaTime);
 
 private:
-    Queue &_queue;
-    Doodle &_doodle;
+    Queue *_queue;
+    Doodle *_doodle;
+    Controller *_controller;
     float _flightSpeed;
     float _gunFrequency;
     float _timeUntilNextShot;
-    Controller *_controller;
 };
 
 #endif /* SRC_PLAYER */

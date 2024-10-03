@@ -18,13 +18,12 @@ public:
     void UpdateStaticAssets();
     void Update();
     void Draw(Shader &shader);
-    unsigned int CreateDynamicDoodle(
+    Doodle &CreateDynamicDoodle(
         std::string model,
         glm::vec3 position = glm::vec3(0.0f),
         glm::vec3 scale = glm::vec3(1.0f),
         glm::vec3 rotation = glm::vec3(0.0f));
-    Doodle &GetDynamicDoodle(unsigned int at);
-    void DeleteDynamicDoodle(unsigned int at);
+    void DeleteDynamicDoodle(Doodle &doodle);
 
 private:
     void addModel(std::string name, std::string path);

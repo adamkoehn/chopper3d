@@ -12,7 +12,8 @@ class Doodle
 {
 public:
     Doodle();
-    Doodle(Model *model, glm::vec3 position, glm::vec3 scale = glm::vec3(1.0f), glm::vec3 rotation = glm::vec3(0.0f));
+    Doodle(int index, Model *model, glm::vec3 position, glm::vec3 scale = glm::vec3(1.0f), glm::vec3 rotation = glm::vec3(0.0f));
+    int GetIndex();
     glm::vec3 GetPosition();
     glm::vec3 GetScale();
     void SetPosition(glm::vec3 position);
@@ -22,6 +23,7 @@ public:
     void Calculate();
 
 private:
+    int _index;
     Model *_model;
     glm::vec3 _position;
     glm::vec3 _scale;

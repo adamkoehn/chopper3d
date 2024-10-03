@@ -39,24 +39,22 @@ void Manager::addModel(std::string name, std::string path)
 
 void Manager::addStaticDoodle(std::string model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
 {
-    int location = _staticAssetCount++;
-    _staticAssets[location] = Doodle(_models[model], position, scale, rotation);
+    int index = _staticAssetCount++;
+    _staticAssets[index] = Doodle(index, _models[model], position, scale, rotation);
 }
 
-unsigned int Manager::CreateDynamicDoodle(std::string model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
+Doodle &Manager::CreateDynamicDoodle(std::string model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
 {
-    _dynamicAssets[_dynamicAssetCount] = Doodle(_models[model], position, scale, rotation);
-    return _dynamicAssetCount++;
+    int index = _dynamicAssetCount++;
+    _dynamicAssets[index] = Doodle(index, _models[model], position, scale, rotation);
+
+    return _dynamicAssets[index];
 }
 
-Doodle &Manager::GetDynamicDoodle(unsigned int at)
+void Manager::DeleteDynamicDoodle(Doodle &doodle)
 {
-    return _dynamicAssets[at];
-}
-
-void Manager::DeleteDynamicDoodle(unsigned int at)
-{
-    _dynamicAssets[at] = _dynamicAssets[_dynamicAssetCount - 1];
+    int index = doodle.GetIndex();
+    _dynamicAssets[index] = _dynamicAssets[_dynamicAssetCount - 1];
     _dynamicAssetCount--;
 }
 

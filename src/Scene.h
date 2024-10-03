@@ -17,17 +17,6 @@ class Scene
 public:
     Scene();
     void Draw(Shader &shader);
-    void Select();
-    void Up();
-    void Down();
-    void Left();
-    void Right();
-    void Back();
-    void Forward();
-    void ScaleUp();
-    void ScaleDown();
-    void MoveDoodle(glm::vec3 move);
-    void ScaleDoodle(glm::vec3 scale);
     void Load();
     bool DidRequestStop();
     void ProcessInput();
@@ -35,10 +24,9 @@ public:
 
 private:
     int _selected;
+    int _activePlayers;
+    Player _players[4];
     Queue _queue;
-    std::vector<Doodle> _doodles;
-    std::vector<Model> _models;
-    std::vector<Player> _players;
     Input _input;
     Controller _keyboard;
     Manager _manager;

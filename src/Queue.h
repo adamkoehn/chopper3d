@@ -2,22 +2,23 @@
 #define SRC_QUEUE
 
 #include <iostream>
-#include "Command.h"
+
+#include "Event.h"
+
+#define QUEUE_SIZE 200
 
 class Queue
 {
 public:
-    Queue(unsigned int size);
-    ~Queue();
-    void Send(Command *command);
-    void Update();
+    Queue();
+    void Send(EventType type);
+    Event *GetNext();
 
 private:
-    unsigned int _size;
     unsigned int _read;
     unsigned int _write;
     bool _full;
-    Command **_commands;
+    Event _events[QUEUE_SIZE];
 };
 
 #endif /* SRC_QUEUE */

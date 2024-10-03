@@ -4,12 +4,18 @@ Doodle::Doodle()
 {
 }
 
-Doodle::Doodle(Model *model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
-    : _model(model),
+Doodle::Doodle(int index, Model *model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
+    : _index(index),
+      _model(model),
       _position(position),
       _scale(scale),
       _rotation(rotation)
 {
+}
+
+int Doodle::GetIndex()
+{
+    return _index;
 }
 
 glm::vec3 Doodle::GetPosition()
