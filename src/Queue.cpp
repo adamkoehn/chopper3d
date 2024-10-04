@@ -5,14 +5,14 @@ Queue::Queue()
 {
 }
 
-void Queue::Send(EventType type)
+void Queue::Send(EventType type, glm::vec3 position)
 {
     if (_full)
     {
         return; // discard
     }
 
-    _events[_write].SetType(type);
+    _events[_write].SetUp(type, position);
     _write = (_write + 1) % QUEUE_SIZE;
 
     if (_write == _read)

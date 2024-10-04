@@ -7,14 +7,17 @@
 
 #include "Model.h"
 #include "Shader.h"
+#include "Dynamic.h"
 
 class Doodle
 {
 public:
     Doodle();
-    Doodle(int index, Model *model, glm::vec3 position, glm::vec3 scale = glm::vec3(1.0f), glm::vec3 rotation = glm::vec3(0.0f));
-    int GetIndex();
-    glm::vec3 GetPosition();
+    void SetUp(Model *model, glm::vec3 position, glm::vec3 scale = glm::vec3(1.0f), glm::vec3 rotation = glm::vec3(0.0f));
+    void MakeDynamic(Dynamic *dynamic);
+    void Update(float deltaTime);
+    bool IsActive();
+    glm::vec3 &GetPosition();
     glm::vec3 GetScale();
     void SetPosition(glm::vec3 position);
     void SetScale(glm::vec3 scale);
@@ -23,13 +26,13 @@ public:
     void Calculate();
 
 private:
-    int _index;
     Model *_model;
     glm::vec3 _position;
     glm::vec3 _scale;
     glm::vec3 _rotation;
     glm::mat4 _mat;
     glm::mat3 _norm;
+    Dynamic *_dynamic;
 };
 
 #endif /* SRC_DOODLE */

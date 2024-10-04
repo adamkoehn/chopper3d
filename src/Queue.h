@@ -1,7 +1,7 @@
 #ifndef SRC_QUEUE
 #define SRC_QUEUE
 
-#include <iostream>
+#include <glm/glm.hpp>
 
 #include "Event.h"
 
@@ -11,7 +11,7 @@ class Queue
 {
 public:
     Queue();
-    void Send(EventType type);
+    void Send(EventType type, glm::vec3 position);
     Event *GetNext();
 
 private:

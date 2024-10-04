@@ -15,13 +15,13 @@ void Scene::Load()
 {
     _manager.LoadLevel();
 
-    Doodle &chopper = _manager.CreateDynamicDoodle("chopper", glm::vec3(-7.0f, 4.5f, 0.0f), glm::vec3(0.4f));
+    Doodle *chopper = _manager.CreateDynamicDoodle("chopper", glm::vec3(-7.0f, 4.5f, 0.0f), glm::vec3(0.4f));
     _manager.CreateDynamicDoodle("tank", glm::vec3(9.0f, -7.0f, 0.0f), glm::vec3(0.2f));
-    _manager.CreateDynamicDoodle("bullet", glm::vec3(0.0f), glm::vec3(0.2f), glm::vec3(0.0f, 0.0f, -135.0f));
 
     _manager.UpdateStaticAssets();
 
-    _players[0].SetUp(&_queue, &chopper, &_keyboard, 9.0f, 0.25f);
+    _players[0].SetUp(&_queue, &_keyboard, 9.0f, 0.25f);
+    chopper->MakeDynamic(&_players[0]);
 }
 
 bool Scene::DidRequestStop()
@@ -40,14 +40,9 @@ void Scene::Update(float deltaTime)
     {
         if (event->GetType() == EVENT_TYPE_PEW)
         {
-            std::cout << "shooting" << std::endl;
+            _manager.CreateBullet(event->GetPosition());
         }
     }
 
-    for (int i = 0; i < _activePlayers; i++)
-    {
-        _players[i].Update(deltaTime);
-    }
-
-    _manager.Update();
+    _manager.Update(deltaTime);
 }

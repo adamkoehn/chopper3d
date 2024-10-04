@@ -1,24 +1,44 @@
 #include "Doodle.h"
 
 Doodle::Doodle()
+    : _model(nullptr), _dynamic(nullptr)
 {
 }
 
-Doodle::Doodle(int index, Model *model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
-    : _index(index),
-      _model(model),
-      _position(position),
-      _scale(scale),
-      _rotation(rotation)
+void Doodle::SetUp(Model *model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
 {
+    _model = model;
+    _position = position;
+    _scale = scale;
+    _rotation = rotation;
 }
 
-int Doodle::GetIndex()
+void Doodle::MakeDynamic(Dynamic *dynamic)
 {
-    return _index;
+    _dynamic = dynamic;
 }
 
-glm::vec3 Doodle::GetPosition()
+void Doodle::Update(float deltaTime)
+{
+    if (!_dynamic)
+    {
+        return;
+    }
+
+    _position = _dynamic->Update(deltaTime, _position);
+}
+
+bool Doodle::IsActive()
+{
+    if (!_dynamic)
+    {
+        return true;
+    }
+
+    return _dynamic->IsActive(_position);
+}
+
+glm::vec3 &Doodle::GetPosition()
 {
     return _position;
 }

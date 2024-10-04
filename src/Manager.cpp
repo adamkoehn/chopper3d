@@ -3,7 +3,8 @@
 Manager::Manager()
     : _modelBufCount(0),
       _staticAssetCount(0),
-      _dynamicAssetCount(0)
+      _dynamicAssetCount(0),
+      _bulletCount(0)
 {
 }
 
@@ -39,23 +40,27 @@ void Manager::addModel(std::string name, std::string path)
 
 void Manager::addStaticDoodle(std::string model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
 {
-    int index = _staticAssetCount++;
-    _staticAssets[index] = Doodle(index, _models[model], position, scale, rotation);
+    _staticAssets[_staticAssetCount++].SetUp(_models[model], position, scale, rotation);
 }
 
-Doodle &Manager::CreateDynamicDoodle(std::string model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
+Doodle *Manager::CreateDynamicDoodle(std::string model, glm::vec3 position, glm::vec3 scale, glm::vec3 rotation)
 {
     int index = _dynamicAssetCount++;
-    _dynamicAssets[index] = Doodle(index, _models[model], position, scale, rotation);
+    _dynamicAssets[index].SetUp(_models[model], position, scale, rotation);
 
-    return _dynamicAssets[index];
+    return &_dynamicAssets[index];
 }
 
-void Manager::DeleteDynamicDoodle(Doodle &doodle)
+void Manager::RemoveDynamicDoodle(int index)
 {
-    int index = doodle.GetIndex();
-    _dynamicAssets[index] = _dynamicAssets[_dynamicAssetCount - 1];
     _dynamicAssetCount--;
+    _dynamicAssets[index] = _dynamicAssets[_dynamicAssetCount];
+}
+
+void Manager::CreateBullet(glm::vec3 position)
+{
+    Doodle *doodle = CreateDynamicDoodle("bullet", position, glm::vec3(0.2f), glm::vec3(0.0f, 0.0f, -135.0f));
+    doodle->MakeDynamic(&_bullet);
 }
 
 void Manager::UpdateStaticAssets()
@@ -66,11 +71,20 @@ void Manager::UpdateStaticAssets()
     }
 }
 
-void Manager::Update()
+void Manager::Update(float deltaTime)
 {
     for (int i = 0; i < _dynamicAssetCount; i++)
     {
-        _dynamicAssets[i].Calculate();
+        _dynamicAssets[i].Update(deltaTime);
+        if (_dynamicAssets[i].IsActive())
+        {
+            _dynamicAssets[i].Calculate();
+        }
+        else
+        {
+            RemoveDynamicDoodle(i);
+            i--;
+        }
     }
 }
 

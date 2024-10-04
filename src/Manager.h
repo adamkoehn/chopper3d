@@ -8,6 +8,7 @@
 #include "Model.h"
 #include "Doodle.h"
 #include "Shader.h"
+#include "Bullet.h"
 
 class Manager
 {
@@ -16,14 +17,15 @@ public:
     ~Manager();
     void LoadLevel();
     void UpdateStaticAssets();
-    void Update();
+    void Update(float deltaTime);
     void Draw(Shader &shader);
-    Doodle &CreateDynamicDoodle(
+    Doodle *CreateDynamicDoodle(
         std::string model,
         glm::vec3 position = glm::vec3(0.0f),
         glm::vec3 scale = glm::vec3(1.0f),
         glm::vec3 rotation = glm::vec3(0.0f));
-    void DeleteDynamicDoodle(Doodle &doodle);
+    void RemoveDynamicDoodle(int index);
+    void CreateBullet(glm::vec3 position);
 
 private:
     void addModel(std::string name, std::string path);
@@ -40,6 +42,8 @@ private:
     int _modelBufCount;
     int _staticAssetCount;
     int _dynamicAssetCount;
+    int _bulletCount;
+    Bullet _bullet;
     std::map<std::string, Model *> _models;
     Model _modelBuf[MAX_MODEL_BUF_SIZE];
     Doodle _staticAssets[MAX_STATIC_ASSET_SIZE];
