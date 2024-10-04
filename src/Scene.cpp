@@ -1,7 +1,10 @@
 #include "Scene.h"
 
 Scene::Scene()
-    : _selected(0), _activePlayers(1)
+    : _tankFrequency(3.0f),
+      _nextTank(0.0f),
+      _selected(0),
+      _activePlayers(1)
 {
     _input.AddController(&_keyboard);
 }
@@ -16,7 +19,6 @@ void Scene::Load()
     _manager.LoadLevel();
 
     Doodle *chopper = _manager.CreateDynamicDoodle("chopper", glm::vec3(-7.0f, 4.5f, 0.0f), glm::vec3(0.4f));
-    _manager.CreateDynamicDoodle("tank", glm::vec3(9.0f, -7.0f, 0.0f), glm::vec3(0.2f));
 
     _manager.UpdateStaticAssets();
 
@@ -42,6 +44,14 @@ void Scene::Update(float deltaTime)
         {
             _manager.CreateBullet(event->GetPosition());
         }
+    }
+
+    _nextTank -= deltaTime;
+    if (_nextTank <= 0.0f)
+    {
+        _nextTank = _tankFrequency;
+        Doodle *tank = _manager.CreateDynamicDoodle("tank", glm::vec3(13.0f, -7.0f, 0.0f), glm::vec3(0.2f));
+        tank->MakeDynamic(&_tank);
     }
 
     _manager.Update(deltaTime);

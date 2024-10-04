@@ -41,15 +41,19 @@ void Input::Process()
             switch (event.key.keysym.sym)
             {
             case SDLK_w:
+            case SDLK_UP:
                 axis.y += 1.0f;
                 break;
             case SDLK_s:
+            case SDLK_DOWN:
                 axis.y -= 1.0f;
                 break;
             case SDLK_a:
+            case SDLK_LEFT:
                 axis.x -= 1.0f;
                 break;
             case SDLK_d:
+            case SDLK_RIGHT:
                 axis.x += 1.0f;
                 break;
             case SDLK_SPACE:
@@ -63,15 +67,19 @@ void Input::Process()
             switch (event.key.keysym.sym)
             {
             case SDLK_w:
+            case SDLK_UP:
                 axis.y -= 1.0f;
                 break;
             case SDLK_s:
+            case SDLK_DOWN:
                 axis.y += 1.0f;
                 break;
             case SDLK_a:
+            case SDLK_LEFT:
                 axis.x += 1.0f;
                 break;
             case SDLK_d:
+            case SDLK_RIGHT:
                 axis.x -= 1.0f;
                 break;
             case SDLK_SPACE:
